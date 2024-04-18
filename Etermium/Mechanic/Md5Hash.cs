@@ -1,23 +1,38 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using System;
+using System.Threading;
 
 namespace Etermium.Mechanic;
 
+/// <summary>
+/// Class responsible for calculating MD5 hashes.
+/// </summary>
 public abstract class Md5Hash
 {
-    public static string CalculateMd5Hash(string input)
+    /// <summary>
+    /// Method to calculate the MD5 hash of the input string.
+    /// </summary>
+    /// <param name="input">The input string to be hashed.</param>
+    /// <returns>The MD5 hash of the input string.</returns>
+    public static string CalculateMd5Hash(string? input)
     {
-        var inputBytes = Encoding.UTF8.GetBytes(input);
-        using (var md5 = MD5.Create())
+        if (input != null)
         {
-            var hashBytes = md5.ComputeHash(inputBytes);
-            var sb = new StringBuilder();
-            foreach (var t in hashBytes)
+            var inputBytes = Encoding.UTF8.GetBytes(input);
+            using (var md5 = MD5.Create())
             {
-                sb.Append(t.ToString("x2"));
-            }
+                var hashBytes = md5.ComputeHash(inputBytes);
+                var sb = new StringBuilder();
+                foreach (var t in hashBytes)
+                {
+                    sb.Append(t.ToString("x2"));
+                }
 
-            return sb.ToString();
+                return sb.ToString();
+            }
         }
+
+        return null!;
     }
 }

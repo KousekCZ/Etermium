@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5o7T2djCr/3f32yHc1RVWZIEVc4w+q/iYBCmTm1Syn/Nnk2u7QC13pPI9kQS69cs6P8UUsVCb17f7/9PGS+Kuw==",
+  "dgSpecHash": "p6BQK0GRHtVSVdh0qO+Abcff7GAtv1dh6C3pKWkXSC+9PBRDvwGCAt2rOSydHSS8hUiY/TdgxxrJEUOo6njoQA==",
   "success": true,
   "projectFilePath": "C:\\Škola\\Čtvrtý ročník\\Programové vybavení - PV\\Etermium\\Etermium\\Etermium.csproj",
   "expectedPackageFiles": [
@@ -15,7 +15,11 @@
     "C:\\Users\\benbe\\.nuget\\packages\\naudio.wasapi\\2.2.1\\naudio.wasapi.2.2.1.nupkg.sha512",
     "C:\\Users\\benbe\\.nuget\\packages\\naudio.winmm\\2.2.1\\naudio.winmm.2.2.1.nupkg.sha512",
     "C:\\Users\\benbe\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
-    "C:\\Users\\benbe\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
+    "C:\\Users\\benbe\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
+    "C:\\Users\\benbe\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\7.0.9\\microsoft.netcore.app.runtime.win-x64.7.0.9.nupkg.sha512",
+    "C:\\Users\\benbe\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\7.0.9\\microsoft.windowsdesktop.app.runtime.win-x64.7.0.9.nupkg.sha512",
+    "C:\\Users\\benbe\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\7.0.9\\microsoft.aspnetcore.app.runtime.win-x64.7.0.9.nupkg.sha512",
+    "C:\\Users\\benbe\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\7.0.9\\microsoft.netcore.app.crossgen2.win-x64.7.0.9.nupkg.sha512"
   ],
   "logs": []
 }

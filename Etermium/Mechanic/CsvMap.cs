@@ -1,10 +1,16 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
 using Etermium.ICommand.CSV;
-using Etermium.start_and_config;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using Etermium.Start_Config;
 
 namespace Etermium.Mechanic;
 
+/// <summary>
+/// Class for managing a mini-game involving movement in a maze represented by a CSV map.
+/// </summary>
 public class CsvMap
 {
     private const string FilePath = "data/Mapa/mapa.csv";
@@ -17,11 +23,17 @@ public class CsvMap
     public static int K { get; set; }
     public static bool IsFinding { get; set; } = true;
 
+    /// <summary>
+    /// Constructor for CsvMap class. Reads the CSV map file.
+    /// </summary>
     public CsvMap()
     {
         ReadCsv();
     }
 
+    /// <summary>
+    /// Reads the CSV file containing the maze map data and initializes the PlayingArea array.
+    /// </summary>
     private static void ReadCsv()
     {
         var data = new string[9, 12];
@@ -35,7 +47,9 @@ public class CsvMap
                     var line = reader.ReadLine();
                     var values = line!.Split(',');
                     for (var column = 0; column < data.GetLength(1) && column < values.Length; column++)
+                    {
                         data[row, column] = values[column];
+                    }
 
                     row++;
                 }
@@ -47,20 +61,35 @@ public class CsvMap
         }
 
         for (var i = 0; i < PlayingArea.GetLength(0); i++)
-        for (var j = 0; j < PlayingArea.GetLength(1); j++)
-            PlayingArea[i, j] = data[i, j];
+        {
+            for (var j = 0; j < PlayingArea.GetLength(1); j++)
+            {
+                PlayingArea[i, j] = data[i, j];
+            }
+        }
     }
 
-    public static void ShowMap()
+    /// <summary>
+    /// Shows the current state of the map.
+    /// </summary>
+    private static void ShowMap()
     {
         for (var i = 0; i < PlayingArea.GetLength(0); i++)
         {
-            for (var j = 0; j < PlayingArea.GetLength(1); j++) Console.Write(PlayingArea[i, j] + " ");
+            for (var j = 0; j < PlayingArea.GetLength(1); j++)
+            {
+                Console.Write(PlayingArea[i, j] + " ");
+            }
 
             Console.WriteLine();
         }
     }
 
+    /// <summary>
+    /// Displays the current position of the player on the map.
+    /// </summary>
+    /// <param name="i">The row index of the player's position.</param>
+    /// <param name="j">The column index of the player's position.</param>
     public static void CurrentPositionPlayer(int i, int j)
     {
         Console.WriteLine("\n  " + PlayingArea[i - 1, j]);
@@ -68,6 +97,10 @@ public class CsvMap
         Console.WriteLine("  " + PlayingArea[i + 1, j]);
     }
 
+    /// <summary>
+    /// Starts the mini-game where the player navigates through the maze and collects rewards.
+    /// </summary>
+    /// <param name="player">The player participating in the mini-game.</param>
     public void PlayMiniGame(Player player)
     {
         Console.Clear();
@@ -86,7 +119,10 @@ public class CsvMap
 
             var move = Console.ReadLine()?.Trim().ToLower();
 
-            for (var i = 0; i < 11; i++) Console.WriteLine();
+            for (var i = 0; i < 11; i++)
+            {
+                Console.WriteLine();
+            }
 
             var commands = new Dictionary<string, ICommand.ICommand>
             {

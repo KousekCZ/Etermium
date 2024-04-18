@@ -1,10 +1,18 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
+using System;
+using System.Threading;
 
 namespace Etermium.ICommand.Dealer;
 
+/// <summary>
+/// Command for buying health points (HP).
+/// </summary>
 public class BuyHp : ICommand
 {
+    /// <summary>
+    /// Executes the command to buy health points (HP).
+    /// </summary>
+    /// <param name="player">The player object.</param>
     public void Execute(Player player, Enemy enemy)
     {
         if (player.Money >= Mechanic.Dealer.PriceHp)
@@ -15,7 +23,7 @@ public class BuyHp : ICommand
             player.Money -= Mechanic.Dealer.PricePower;
             Console.WriteLine("Děkuji za nákup.");
             Thread.Sleep(2000);
-            start_and_config.GameMenu.NewFrame();
+            Start_Config.GameMenu.NewFrame();
         }
         else
         {

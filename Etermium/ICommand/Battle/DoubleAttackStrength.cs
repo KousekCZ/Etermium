@@ -1,15 +1,24 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
+using System;
+using System.Threading;
 
 namespace Etermium.ICommand.Battle;
 
+/// <summary>
+/// Command for executing a double attack strength during battle.
+/// </summary>
 public class DoubleAttackStrength : ICommand
 {
     private readonly Random _rd = new();
 
+    /// <summary>
+    /// Executes the double attack strength command.
+    /// </summary>
+    /// <param name="player">The player object.</param>
+    /// <param name="enemy">The enemy object.</param>
     public void Execute(Player player, Enemy enemy)
     {
-        start_and_config.GameMenu.NewFrame();
+        Start_Config.GameMenu.NewFrame();
         Console.WriteLine("\nHráč/ka " + player.PlayerName +
                           " se pokouší vyhnout a udělit větší dmg.");
         Thread.Sleep(1500);

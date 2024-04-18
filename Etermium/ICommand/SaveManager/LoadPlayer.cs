@@ -1,11 +1,16 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
 using Etermium.Mechanic;
-using Etermium.start_and_config;
 using MySqlConnector;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using Etermium.Start_Config;
 
 namespace Etermium.ICommand.SaveManager;
 
+/// <summary>
+/// Command to load a player's saved game position.
+/// </summary>
 public class LoadPlayer : ICommand
 {
     private readonly DatabaseConfig _config = new();
@@ -13,14 +18,24 @@ public class LoadPlayer : ICommand
     private string? _loginName;
     private string? _loginPassword;
 
+    /// <summary>
+    /// Executes the command to load the player's saved game position.
+    /// </summary>
+    /// <param name="player">The player object.</param>
+    /// <param name="enemy">The enemy object.</param>
     public void Execute(Player player, Enemy enemy)
     {
         Load(player);
     }
 
+    /// <summary>
+    /// Prompts the user for login credentials and loads the player's saved game position if authentication succeeds.
+    /// </summary>
+    /// <param name="player">The player object.</param>
+    /// <returns>True if the login was unsuccessful, false otherwise.</returns>
     public bool Login(Player player)
     {
-        var isChecking = true;
+        bool isChecking = true;
         var playerFound = false;
         while (isChecking)
         {
@@ -68,6 +83,10 @@ public class LoadPlayer : ICommand
         return false;
     }
 
+    /// <summary>
+    /// Loads the saved game positions from the database.
+    /// </summary>
+    /// <param name="player">The player object.</param>
     private void Load(Player player)
     {
         try
@@ -75,10 +94,14 @@ public class LoadPlayer : ICommand
             string query;
 
             if (_loginLoad)
+            {
                 query = $"select id, Hp, Mana, AttackPower, Money, HpPotion, PowerPotion, Created from {_loginName}";
+            }
             else
+            {
                 query =
                     $"select id, Hp, Mana, AttackPower, Money, HpPotion, PowerPotion, Created from {player.PlayerName}";
+            }
 
             using (MySqlCommand command = new MySqlCommand(query, _config.StableConnect()))
             {
@@ -113,6 +136,11 @@ public class LoadPlayer : ICommand
         }
     }
 
+    /// <summary>
+    /// Prompts the user to select a saved game position to load.
+    /// </summary>
+    /// <param name="id">The list of IDs of available saved game positions.</param>
+    /// <param name="player">The player object.</param>
     private void LoadPosition(List<int> id, Player player)
     {
         var choose = 0;
@@ -125,7 +153,10 @@ public class LoadPlayer : ICommand
                     Console.Write("\nZadej ID pozice, ktere chceš načíst (stiskni 0 pro ukončení): ");
                     choose = int.Parse(Console.ReadLine()!.Trim());
 
-                    if (!id.Contains(choose) && choose != 0) Console.WriteLine("\nTakova pozice s ID neexistuje.");
+                    if (!id.Contains(choose) && choose != 0)
+                    {
+                        Console.WriteLine("\nTakova pozice s ID neexistuje.");
+                    }
                 }
                 catch (Exception e)
                 {
@@ -137,11 +168,16 @@ public class LoadPlayer : ICommand
             {
                 string query;
                 if (_loginLoad)
+                {
                     query =
                         $"select id, Hp, Mana, AttackPower, Money, HpPotion, PowerPotion, PlayerName from {_loginName} where id = {choose}";
+                }
                 else
+                {
                     query =
                         $"select id, Hp, Mana, AttackPower, Money, HpPotion, PowerPotion, PlayerName from {player.PlayerName} where id = {choose}";
+                }
+
                 using (MySqlCommand command = new MySqlCommand(query, _config.StableConnect()))
                 {
                     using (var reader = command.ExecuteReader())
@@ -163,7 +199,10 @@ public class LoadPlayer : ICommand
                 }
             }
 
-            if (choose == 0 && player.StartLoad) player.NewPlayer(player);
+            if (choose == 0 && player.StartLoad)
+            {
+                player.NewPlayer(player);
+            }
         }
         catch (Exception e)
         {

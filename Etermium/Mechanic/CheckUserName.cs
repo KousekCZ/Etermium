@@ -1,13 +1,24 @@
-﻿using Etermium.start_and_config;
-using MySqlConnector;
+﻿using MySqlConnector;
+using System;
+using System.Threading;
+using Etermium.Start_Config;
 
 namespace Etermium.Mechanic;
 
+/// <summary>
+/// Abstract class for checking the uniqueness of a player's username and creating a new player in the database.
+/// </summary>
 public abstract class CheckUserName
 {
     private static readonly DatabaseConfig Config = new();
 
-    public static bool CheckSameName(string playerName, string password)
+    /// <summary>
+    /// Checks if the given player name is unique and creates a new player in the database if it is.
+    /// </summary>
+    /// <param name="playerName">The name of the player to be checked.</param>
+    /// <param name="password">The password associated with the player's account.</param>
+    /// <returns>True if the player name is unique and the player is successfully created; otherwise, false.</returns>
+    public static bool CheckSameName(string playerName, string? password)
     {
         if (playerName.Length is < 5 or > 50)
         {
@@ -16,7 +27,7 @@ public abstract class CheckUserName
             return false;
         }
 
-        if (password.Length < 8)
+        if (password!.Length < 8)
         {
             Console.WriteLine("Zadané heslo je mimo rozsah.");
             Thread.Sleep(2000);
@@ -54,6 +65,11 @@ public abstract class CheckUserName
         }
     }
 
+    /// <summary>
+    /// Creates a new player table in the database with the specified player name and hashed password.
+    /// </summary>
+    /// <param name="playerName">The name of the player for whom to create a new table.</param>
+    /// <param name="hashPassword">The hashed password associated with the player's account.</param>
     private static void CreatePlayerTable(string playerName, string hashPassword)
     {
         try

@@ -1,14 +1,24 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
-using Etermium.start_and_config;
 using MySqlConnector;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using Etermium.Start_Config;
 
 namespace Etermium.ICommand.SaveManager;
 
+/// <summary>
+/// Command for deleting a player's saved position.
+/// </summary>
 public class DeletePlayerPosition : ICommand
 {
     private readonly DatabaseConfig _config = new();
 
+    /// <summary>
+    /// Executes the command to delete a player's saved position.
+    /// </summary>
+    /// <param name="player">The player object.</param>
+    /// <param name="enemy">The enemy object.</param>
     public void Execute(Player player, Enemy enemy)
     {
         try
@@ -19,11 +29,9 @@ public class DeletePlayerPosition : ICommand
             using (MySqlCommand command = new MySqlCommand(query, _config.StableConnect()))
             {
                 command.ExecuteNonQuery();
-
                 var reader = command.ExecuteReader();
 
                 var id = new List<int>();
-
                 while (reader.Read())
                 {
                     Console.WriteLine("------------------\nID: " + reader[0] + "\nHP: " + reader[1] +
@@ -50,6 +58,11 @@ public class DeletePlayerPosition : ICommand
         }
     }
 
+    /// <summary>
+    /// Allows the player to select a position to delete from the list of saved positions.
+    /// </summary>
+    /// <param name="id">The list of IDs of saved positions.</param>
+    /// <param name="player">The player object.</param>
     private void SelectMessagesToDelete(List<int> id, Player player)
     {
         var choose = 0;

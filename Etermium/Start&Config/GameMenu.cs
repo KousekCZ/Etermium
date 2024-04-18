@@ -1,12 +1,17 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
 using Etermium.ICommand.GameMenu;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 using Etermium.Mechanic;
-using Etermium.Print_out;
+using Etermium.PrintOut;
 using Dealer = Etermium.ICommand.GameMenu.Dealer;
 
-namespace Etermium.start_and_config;
+namespace Etermium.Start_Config;
 
+/// <summary>
+/// Represents the game menu functionality.
+/// </summary>
 public class GameMenu
 {
     private readonly DatabaseConfig _config = new();
@@ -15,6 +20,9 @@ public class GameMenu
     private readonly Player _player = new();
     public static bool IsPlaying { get; set; } = true;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GameMenu"/> class.
+    /// </summary>
     [Obsolete("Obsolete")]
     public GameMenu()
     {
@@ -38,7 +46,7 @@ public class GameMenu
         t1.Start();
 
         string music;
-        string rgb = null!;
+        string rgb;
 
         do
         {
@@ -90,9 +98,13 @@ public class GameMenu
         {
             Console.WriteLine();
         }
+
         Environment.Exit(0);
     }
 
+    /// <summary>
+    /// Main gameplay loop.
+    /// </summary>
     private void Gameplay()
     {
         while (IsPlaying)
@@ -105,7 +117,7 @@ public class GameMenu
                 + "\n3) Jít domu (zde se generují peníze)"
                 + "\n4) Zkusit porazit bosse."
                 + "\n5) Jít bojovat nebo hádat hádanky, kvízy (záleží, co ti program vybere :D)"
-                + "\n6) Správa uložených pozic." + "\n7) Vypnout hru bez uložení.");
+                + "\n6) Správa uložených pozic." + "\n7) Vypnout hru.");
 
             var choose = Console.ReadLine()!.Trim();
 
@@ -132,6 +144,9 @@ public class GameMenu
         }
     }
 
+    /// <summary>
+    /// Clears the console by writing new lines.
+    /// </summary>
     public static void NewFrame()
     {
         for (var i = 0; i < 100; i++) Console.WriteLine();

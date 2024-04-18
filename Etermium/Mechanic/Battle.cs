@@ -1,12 +1,17 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
 using Etermium.ICommand.Battle;
 using Etermium.ICommand.SaveManager;
-using Etermium.Print_out;
-using Etermium.start_and_config;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using Etermium.PrintOut;
+using Etermium.Start_Config;
 
 namespace Etermium.Mechanic;
 
+/// <summary>
+/// Class responsible for managing battles between the player and enemies.
+/// </summary>
 public class Battle
 {
     private readonly Random _rd = new();
@@ -16,6 +21,11 @@ public class Battle
     public static int UpPowerCount { get; set; }
     public static bool IsFighting { get; set; } = true;
 
+    /// <summary>
+    /// Starts a battle between the player and an enemy.
+    /// </summary>
+    /// <param name="enemy">The enemy object.</param>
+    /// <param name="player">The player object.</param>
     [Obsolete("Obsolete")]
     public void StartBattle(Enemy enemy, Player player)
     {
@@ -25,15 +35,22 @@ public class Battle
             Console.Clear();
             Console.WriteLine("\nPozor nepřítel: " + enemy.Name);
             Console.Write("HP: (" + enemy.Hp + ") ");
-            for (var i = 0; i < enemy.Hp; i++) Console.Write("▒");
+            for (var i = 0; i < enemy.Hp; i++)
+            {
+                Console.Write("▒");
+            }
 
             Thread.Sleep(1500);
 
             player.BattlePrint();
             if (UpPowerCount >= 1)
+            {
                 Console.WriteLine("Zbývající počet úderů se zvýšenou sílou: " + UpPowerCount);
+            }
             else
+            {
                 player.AttackPower = tmpAttackPower;
+            }
 
             Thread.Sleep(2500);
 
@@ -60,7 +77,10 @@ public class Battle
             if (commands.TryGetValue(choose!, out command!)) command.Execute(player, enemy);
 
             // Kontroly, jestli nebojuje s bosem, nebo jestli neprohrál
-            if (enemy is { BossEnd: true, Hp: <= 0 })
+            if (enemy is
+                {
+                    BossEnd: true, Hp: <= 0
+                })
             {
                 GameMenu.NewFrame();
                 Console.WriteLine("Porazil jsi " + enemy.Name + " výborně. Vyhrál jsi hru!");

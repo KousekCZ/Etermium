@@ -1,9 +1,17 @@
-﻿using Etermium.start_and_config;
+﻿using Etermium.Start_Config;
+using System;
+using System.Threading;
 
-namespace Etermium.Print_out;
+namespace Etermium.PrintOut;
 
+/// <summary>
+/// Class responsible for printing out the end-game messages.
+/// </summary>
 public class EndGame
 {
+    /// <summary>
+    /// Prints out the victory message.
+    /// </summary>
     public static void WinGame()
     {
         Console.WriteLine("\n\n 		                        .-.\r\n"
@@ -122,6 +130,9 @@ public class EndGame
             "                                                                                                                                                                                                                  ");
     }
 
+    /// <summary>
+    /// Prints out the defeat message.
+    /// </summary>
     public static void LostGame()
     {
         GameMenu.NewFrame();

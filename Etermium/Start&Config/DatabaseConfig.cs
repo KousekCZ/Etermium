@@ -1,12 +1,22 @@
-﻿namespace Etermium.start_and_config;
+﻿using MySqlConnector;
+using System;
+using System.IO;
+using System.Threading;
 
-using MySqlConnector;
+namespace Etermium.Start_Config;
 
+/// <summary>
+/// Handles database configuration and connection.
+/// </summary>
 public class DatabaseConfig
 {
     private MySqlConnection _firstConnection = null!;
     private MySqlConnection _stableConnection = null!;
 
+    /// <summary>
+    /// Establishes the initial database connection.
+    /// </summary>
+    /// <returns params="_firstConnection">The MySqlConnection object representing the connection.</returns>
     public MySqlConnection FirstOrLastConnect()
     {
         uint attempt = 3;
@@ -41,11 +51,14 @@ public class DatabaseConfig
         return _firstConnection;
     }
 
+    /// <summary>
+    /// Creates the necessary database and user privileges.
+    /// </summary>
     public void CreateDatabase()
     {
         try
         {
-            var createDatabaseQuery =
+            const string createDatabaseQuery =
                 "CREATE DATABASE if not exists Etermium; \nCREATE USER if not exists 'EtermiumUser'@'%' IDENTIFIED BY 'etermium'; \nGRANT ALL PRIVILEGES ON etermium.* TO 'EtermiumUser'@'%'; \nFLUSH PRIVILEGES;";
             using (MySqlCommand command = new MySqlCommand(createDatabaseQuery, FirstOrLastConnect()))
             {
@@ -60,6 +73,10 @@ public class DatabaseConfig
         }
     }
 
+    /// <summary>
+    /// Establishes a stable database connection.
+    /// </summary>
+    /// <returns params="_stableConnection">The MySqlConnection object representing the connection.</returns>
     public MySqlConnection StableConnect()
     {
         uint attempt = 3;
@@ -89,6 +106,9 @@ public class DatabaseConfig
         return _stableConnection;
     }
 
+    /// <summary>
+    /// Imports initial data into the database.
+    /// </summary>
     public void ImportData()
     {
         try

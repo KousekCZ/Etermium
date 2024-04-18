@@ -1,15 +1,24 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
+using System;
+using System.Threading;
 
 namespace Etermium.ICommand.Battle;
 
+/// <summary>
+/// Command for executing a run away action during battle.
+/// </summary>
 public class RunAway : ICommand
 {
     private readonly Random _rd = new();
 
+    /// <summary>
+    /// Executes the run away command.
+    /// </summary>
+    /// <param name="player">The player object.</param>
+    /// <param name="enemy">The enemy object.</param>
     public void Execute(Player player, Enemy enemy)
     {
-        start_and_config.GameMenu.NewFrame();
+        Start_Config.GameMenu.NewFrame();
 
         if (enemy.BossEnd)
         {

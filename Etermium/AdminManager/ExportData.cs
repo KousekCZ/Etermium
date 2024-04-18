@@ -1,13 +1,23 @@
-﻿using Etermium.start_and_config;
-using MySqlConnector;
+﻿using MySqlConnector;
+using System;
+using System.IO;
+using System.Threading;
+using Etermium.Start_Config;
 
 namespace Etermium.AdminManager;
 
+/// <summary>
+/// Handles exporting user data to a CSV file.
+/// </summary>
 public class ExportData
 {
-    private DatabaseConfig _config = new();
+    private readonly DatabaseConfig _config = new();
     public static string? Message { get; set; }
 
+    /// <summary>
+    /// Exports user data from the database to a CSV file.
+    /// </summary>
+    /// <returns>True if the export is successful; otherwise, false.</returns>
     public bool Export()
     {
         const string query = "select * from users";

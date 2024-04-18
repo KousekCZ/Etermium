@@ -1,13 +1,24 @@
 ﻿using Etermium.Mechanic;
+using System;
+using System.Threading;
 
-namespace Etermium.start_and_config;
+namespace Etermium.Start_Config;
 
+/// <summary>
+/// Abstract class representing the password validation process.
+/// </summary>
 public abstract class Password
 {
     private const string GamePassword = "adf06566e521050416314c28eb6d4eaa";
     private const string AdminPassword = "21232f297a57a5a743894a0e4a801fc3";
+    private static string? _passwordEntered;
+    private static string? _hashPasswordEntered;
+    private static int _passwordAttempt = 5;
     private static readonly AdminManager.AdminManager AdminManager = new();
 
+    /// <summary>
+    /// Initiates the password validation process.
+    /// </summary>
     public static void PPassword()
     {
         Console.WriteLine("\n\n		    .. ..           \r\n" +
@@ -38,35 +49,34 @@ public abstract class Password
 
         Thread.Sleep(5000);
 
-        var passwordAttempt = 5;
-        while (passwordAttempt != 0)
+        while (_passwordAttempt != 0)
         {
             Console.WriteLine(
                 "První jednoduchá otázka, jak se jmenuje hra, kterou jsi právě spustil/a? (napiš přesně): ");
-            var passwordEntered = Console.ReadLine()!.Trim();
-            var hashPasswordEntered = Md5Hash.CalculateMd5Hash(passwordEntered!);
+            _passwordEntered = Console.ReadLine()!.Trim();
+            _hashPasswordEntered = Md5Hash.CalculateMd5Hash(_passwordEntered!);
 
-            if (hashPasswordEntered == GamePassword)
+            if (_hashPasswordEntered == GamePassword)
             {
                 Console.WriteLine("------------------------------------");
-                passwordAttempt = 0;
+                _passwordAttempt = 0;
             }
-            else if (hashPasswordEntered == AdminPassword)
+            else if (_hashPasswordEntered == AdminPassword)
             {
                 AdminManager.ManagerAdmin();
             }
             else
             {
-                passwordAttempt--;
-                Console.WriteLine("\nZbývající počet pokusů: " + passwordAttempt);
+                _passwordAttempt--;
+                Console.WriteLine("\nZbývající počet pokusů: " + _passwordAttempt);
 
-                if (passwordAttempt == 0)
+                if (_passwordAttempt == 0)
                 {
                     const string text =
                         "To je ostuda, že hraješ hru a ani nevíš, jak se jmenuje :(, program skončil, musíš ho pustit znovu.";
-                    for (var i = 0; i < text.Length; i++)
+                    foreach (var t in text)
                     {
-                        Console.Write(text[i]);
+                        Console.Write(t);
                         Thread.Sleep(40);
                     }
 

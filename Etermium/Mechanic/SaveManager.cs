@@ -1,14 +1,24 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
 using Etermium.ICommand.SaveManager;
-using Etermium.start_and_config;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using Etermium.Start_Config;
 
 namespace Etermium.Mechanic;
 
+/// <summary>
+/// Class responsible for managing player save positions.
+/// </summary>
 public class SaveManager
 {
     public bool IsSaving { get; set; } = true;
 
+    /// <summary>
+    /// Manages the saving of player positions.
+    /// </summary>
+    /// <param name="player">The player whose position is being managed.</param>
+    /// <param name="enemy">The enemy being interacted with.</param>
     public void ManageSave(Player player, Enemy enemy)
     {
         while (IsSaving)
@@ -21,12 +31,12 @@ public class SaveManager
                 + "\n3) Promazat uložené pozice."
                 + "\n(u) Ukončit správu uložených pozic.");
 
-            var dotaz = Console.ReadLine()!.Trim();
+            var choose = Console.ReadLine()!.Trim();
 
-            while (!dotaz.Equals("1") && !dotaz.Equals("2") && !dotaz.Equals("3") && !dotaz.Equals("u"))
+            while (!choose.Equals("1") && !choose.Equals("2") && !choose.Equals("3") && !choose.Equals("u"))
             {
                 Console.Write("Taková volba v nabídce není, zkus to znovu: ");
-                dotaz = Console.ReadLine()!.Trim();
+                choose = Console.ReadLine()!.Trim();
             }
 
             var commands = new Dictionary<string, ICommand.ICommand>
@@ -37,9 +47,12 @@ public class SaveManager
             };
 
             ICommand.ICommand command;
-            if (commands.TryGetValue(dotaz, out command!)) command.Execute(player, enemy);
+            if (commands.TryGetValue(choose, out command!))
+            {
+                command.Execute(player, enemy);
+            }
 
-            if (dotaz.Equals("u", StringComparison.OrdinalIgnoreCase))
+            if (choose.Equals("u", StringComparison.OrdinalIgnoreCase))
             {
                 IsSaving = false;
                 GameMenu.NewFrame();

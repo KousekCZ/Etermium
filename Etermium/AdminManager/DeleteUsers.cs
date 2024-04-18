@@ -1,14 +1,25 @@
 ﻿using MySqlConnector;
+using System;
+using System.Threading;
 
 namespace Etermium.AdminManager;
 
-public class DeleteUsers
+/// <summary>
+/// Abstract class for deleting user data from the database.
+/// </summary>
+public abstract class DeleteUsers
 {
+    /// <summary>
+    /// Deletes a user and associated data from the database.
+    /// </summary>
+    /// <param name="connection">The MySqlConnection object representing the database connection.</param>
+    /// <param name="playerName">The name of the player whose data is to be deleted.</param>
+    /// <returns>True if the user and associated data are successfully deleted; otherwise, false.</returns>
     public static bool DeleteUser(MySqlConnection connection, string playerName)
     {
         try
         {
-            var deleteUserQuery = "DELETE FROM Users WHERE Playername = @PlayerName";
+            const string deleteUserQuery = "DELETE FROM Users WHERE Playername = @PlayerName";
             using (MySqlCommand deleteUserCommand = new MySqlCommand(deleteUserQuery, connection))
             {
                 deleteUserCommand.Parameters.AddWithValue("@PlayerName", playerName);

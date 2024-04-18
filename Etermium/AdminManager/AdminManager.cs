@@ -1,12 +1,20 @@
-﻿using Etermium.start_and_config;
+﻿using System;
+using System.Threading;
+using Etermium.Start_Config;
 
 namespace Etermium.AdminManager;
 
+/// <summary>
+/// Manages administrative functions for the Etermium game.
+/// </summary>
 public class AdminManager
 {
     private readonly DatabaseConfig _config = new();
     private readonly ExportData _exportData = new();
 
+    /// <summary>
+    /// Initiates the administrative functionality for managing user data.
+    /// </summary>
     public void ManagerAdmin()
     {
         Console.Clear();

@@ -1,13 +1,22 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
+using System;
+using System.Threading;
 
 namespace Etermium.ICommand.Battle;
 
+/// <summary>
+/// Command for executing the use of a power potion during battle.
+/// </summary> 
 public class UsePowerPotion : ICommand
 {
+    /// <summary>
+    /// Executes the command to use a power potion.
+    /// </summary>
+    /// <param name="player">The player object.</param>
+    /// <param name="enemy">The enemy object.</param>
     public void Execute(Player player, Enemy enemy)
     {
-        start_and_config.GameMenu.NewFrame();
+        Start_Config.GameMenu.NewFrame();
         if (player.PowerPotion >= 1)
         {
             if (player.Mana >= 11)

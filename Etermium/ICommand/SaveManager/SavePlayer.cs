@@ -1,17 +1,26 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
-using Etermium.start_and_config;
 using MySqlConnector;
+using System;
+using System.Threading;
+using Etermium.Start_Config;
 
 namespace Etermium.ICommand.SaveManager;
 
+/// <summary>
+/// Represents the command to save the player's game progress.
+/// </summary>
 public class SavePlayer : ICommand
 {
     private static readonly DatabaseConfig Config = new();
 
+    /// <summary>
+    /// Executes the command to save the player's game progress.
+    /// </summary>
+    /// <param name="player">The player object.</param>
+    /// <param name="enemy">The enemy object.</param>
     public void Execute(Player player, Enemy enemy)
     {
-        start_and_config.GameMenu.NewFrame();
+        Start_Config.GameMenu.NewFrame();
 
         var query =
             $"insert into {player.PlayerName} (Hp, Mana, AttackPower, Money, HpPotion, PowerPotion, PlayerName) values(@Hp, @Mana, @AttackPower, @Money, @HpPotion, @PowerPotion, @PlayerName);";
@@ -27,12 +36,15 @@ public class SavePlayer : ICommand
             command.ExecuteNonQuery();
         }
 
-        start_and_config.GameMenu.NewFrame();
+        Start_Config.GameMenu.NewFrame();
         var t = new Thread(Saving);
         t.Start();
         t.Join();
     }
 
+    /// <summary>
+    /// Method that simulates the saving process with dots and displays a success message.
+    /// </summary>
     private static void Saving()
     {
         try
@@ -49,10 +61,10 @@ public class SavePlayer : ICommand
             Console.Write(".");
             Thread.Sleep(700);
 
-            start_and_config.GameMenu.NewFrame();
+            Start_Config.GameMenu.NewFrame();
             Console.WriteLine("Postava byla uložena");
             Thread.Sleep(1500);
-            start_and_config.GameMenu.NewFrame();
+            Start_Config.GameMenu.NewFrame();
         }
         catch (Exception e)
         {

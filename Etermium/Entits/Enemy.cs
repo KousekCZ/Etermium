@@ -1,10 +1,14 @@
-﻿using Etermium.Entits;
-using Etermium.Mechanic;
-using Etermium.Print_out;
-using Etermium.start_and_config;
+﻿using Etermium.Mechanic;
+using System;
+using System.Threading;
+using Etermium.PrintOut;
+using Etermium.Start_Config;
 
-namespace Etermium.Entity;
+namespace Etermium.Entits;
 
+/// <summary>
+/// Represents the enemy entity in the game.
+/// </summary>
 public class Enemy
 {
     private readonly Riddles _riddles = new();
@@ -17,6 +21,11 @@ public class Enemy
     public int AttackPower { get; set; }
     public bool BossEnd { get; set; }
 
+    /// <summary>
+    /// Generates a battle or a riddle encounter for the enemy.
+    /// </summary>
+    /// <param name="enemy">The enemy instance.</param>
+    /// <param name="player">The player instance.</param>
     [Obsolete("Obsolete")]
     public void GenerateBattleOrRiddle(Enemy enemy, Player player)
     {
@@ -29,7 +38,7 @@ public class Enemy
                 _map.PlayMiniGame(player);
                 break;
             case 1:
-                EnemyPicture.BatPicture();
+                Pictures.BatPicture();
                 SetEnemy("podzemní netopýr", 5, _random.Next(3));
                 _battle.StartBattle(enemy, player);
                 break;
@@ -37,7 +46,7 @@ public class Enemy
                 _riddles.Riddle1(player);
                 break;
             case 3:
-                EnemyPicture.RatPicture();
+                Pictures.RatPicture();
                 SetEnemy("podzemní krysa", 15, _random.Next(3, 9));
                 _battle.StartBattle(enemy, player);
                 break;
@@ -73,7 +82,7 @@ public class Enemy
                 _riddles.Riddle6(player);
                 break;
             case 13:
-                EnemyPicture.WolfPicture();
+                Pictures.WolfPicture();
                 SetEnemy("bílý vlk", 160, _random.Next(10, 25));
                 _battle.StartBattle(enemy, player);
                 break;
@@ -83,6 +92,12 @@ public class Enemy
         }
     }
 
+    /// <summary>
+    /// Sets the properties of the enemy.
+    /// </summary>
+    /// <param name="name">The name of the enemy.</param>
+    /// <param name="hp">The health points of the enemy.</param>
+    /// <param name="attackPower">The attack power of the enemy.</param>
     private void SetEnemy(string name, int hp, int attackPower)
     {
         Name = name;
@@ -90,6 +105,11 @@ public class Enemy
         AttackPower = attackPower;
     }
 
+    /// <summary>
+    /// Initiates a boss battle.
+    /// </summary>
+    /// <param name="enemy">The enemy instance.</param>
+    /// <param name="player">The player instance.</param>
     [Obsolete("Obsolete")]
     public void Boss(Enemy enemy, Player player)
     {

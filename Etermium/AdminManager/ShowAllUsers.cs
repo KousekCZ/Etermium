@@ -1,9 +1,19 @@
 ﻿using MySqlConnector;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Etermium.AdminManager;
 
+/// <summary>
+/// Abstract class for displaying all users in the database.
+/// </summary>
 public abstract class ShowAllUsers
 {
+    /// <summary>
+    /// Displays all users in the database.
+    /// </summary>
+    /// <param name="connect">The MySqlConnection object representing the database connection.</param>
     public static void ShowAllUserss(MySqlConnection connect)
     {
         try

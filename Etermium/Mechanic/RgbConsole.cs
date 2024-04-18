@@ -1,7 +1,16 @@
 ﻿namespace Etermium.Mechanic;
 
-public class RgbConsole
+using System;
+using System.Threading;
+
+/// <summary>
+/// Class responsible for changing the console text color in a random manner.
+/// </summary>
+public abstract class RgbConsole
 {
+    /// <summary>
+    /// Randomly changes the console text color.
+    /// </summary>
     public static void Rgb()
     {
         var t = new Thread(() =>

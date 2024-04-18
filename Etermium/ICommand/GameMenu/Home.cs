@@ -1,17 +1,26 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
 using Etermium.Mechanic;
+using System;
+using System.Threading;
 
 namespace Etermium.ICommand.GameMenu;
 
+/// <summary>
+/// Class representing the command to return home.
+/// </summary>
 public class Home : ICommand
 {
+    /// <summary>
+    /// Executes the command to return home.
+    /// </summary>
+    /// <param name="player">The player object.</param>
+    /// <param name="enemy">The enemy object.</param>
     public void Execute(Player player, Enemy enemy)
     {
-        start_and_config.GameMenu.NewFrame();
+        Start_Config.GameMenu.NewFrame();
         HomeGenerator.CestaDom();
         Thread.Sleep(3500);
-        start_and_config.GameMenu.NewFrame();
+        Start_Config.GameMenu.NewFrame();
         Console.Clear();
         HomeGenerator.SweetHome();
         const string text = "\nVítej ve svém domečku, zde se ti generují peníze, 1$ za 3s, co bys rád udělal?";
@@ -26,8 +35,8 @@ public class Home : ICommand
         {
             Console.WriteLine(
                 "\n- Vyzvednout peníze - (v)\n- Zjistit kolik už je vygenerováno peněz - (i)\n- odejít zpět do menu beze změny - (z)\n");
-            var dotaz = Console.ReadLine()!.Trim().ToLower();
-            switch (dotaz)
+            var choose = Console.ReadLine()!.Trim().ToLower();
+            switch (choose)
             {
                 case "v":
                     player.Money += HomeGenerator.Dollars;
@@ -39,10 +48,10 @@ public class Home : ICommand
                     Thread.Sleep(1000);
                     break;
                 case "z":
-                    start_and_config.GameMenu.NewFrame();
+                    Start_Config.GameMenu.NewFrame();
                     HomeGenerator.CestaZDom();
                     Thread.Sleep(3500);
-                    start_and_config.GameMenu.NewFrame();
+                    Start_Config.GameMenu.NewFrame();
                     atHome = false;
                     break;
             }

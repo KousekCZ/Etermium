@@ -1,14 +1,22 @@
 ﻿using Etermium.ICommand.SaveManager;
 using Etermium.Mechanic;
+using System;
+using System.Threading;
 
 namespace Etermium.Entits;
 
+/// <summary>
+/// Represents the player entity in the game.
+/// </summary>
 public class Player
 {
     private bool _newPlayer = true;
     private readonly Random _rd = new();
     private readonly SavePlayer _savePlayer = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Player"/> class.
+    /// </summary>
     public Player()
     {
     }
@@ -17,12 +25,16 @@ public class Player
     public int Mana { get; set; }
     public int AttackPower { get; set; }
     public string PlayerName { get; set; }
-    private string _password;
+    private string? _password;
     public int Money { get; set; }
     public int HpPotion { get; set; }
     public int PowerPotion { get; set; }
     public bool StartLoad { get; set; } = true;
 
+    /// <summary>
+    /// Creates a new player or loads an existing one.
+    /// </summary>
+    /// <param name="player">The player instance.</param>
     public void NewPlayer(Player player)
     {
         while (_newPlayer)
@@ -32,7 +44,7 @@ public class Player
             Console.WriteLine("Chceš načíst uloženou hru? - (n), nebo si vytvořit postavu? - (v)");
             var save = Console.ReadLine()!.Trim();
 
-            while (!(save!.Equals("n", StringComparison.OrdinalIgnoreCase) ||
+            while (!(save.Equals("n", StringComparison.OrdinalIgnoreCase) ||
                      save.Equals("v", StringComparison.OrdinalIgnoreCase)))
             {
                 Console.WriteLine("Znovu, chceš načíst uloženou hru?");
@@ -43,7 +55,10 @@ public class Player
             {
                 var loadPlayer = new LoadPlayer();
 
-                if (!loadPlayer.Login(player)) _newPlayer = false;
+                if (!loadPlayer.Login(player))
+                {
+                    _newPlayer = false;
+                }
             }
 
             if (save.Equals("v", StringComparison.OrdinalIgnoreCase))
@@ -52,7 +67,7 @@ public class Player
                 Console.WriteLine("Dobře, tak ti vytvořím novou postavu, jsi kluk nebo holka?");
                 var gender = Console.ReadLine()!.Trim();
 
-                while (!(gender!.Equals("kluk", StringComparison.OrdinalIgnoreCase) ||
+                while (!(gender.Equals("kluk", StringComparison.OrdinalIgnoreCase) ||
                          gender.Equals("holka", StringComparison.OrdinalIgnoreCase)))
                 {
                     Console.WriteLine("Znovu, jsi holka nebo kluk?");
@@ -63,6 +78,7 @@ public class Player
                 {
                     Console.Write("\nZadej své herní jméno v rozsahu 5 až 50 znaků: ");
                     PlayerName = Console.ReadLine()!;
+                    PlayerName = PlayerName.Replace(" ", "");
 
                     string hesloZnovu;
                     do
@@ -73,7 +89,10 @@ public class Player
                         Console.Write("\nZadej znovu nové heslo: ");
                         hesloZnovu = Console.ReadLine()!;
 
-                        if (_password != hesloZnovu) Console.WriteLine("\nHesla se neshodují");
+                        if (_password != hesloZnovu)
+                        {
+                            Console.WriteLine("\nHesla se neshodují");
+                        }
                     } while (_password != hesloZnovu);
                 } while (!CheckUserName.CheckSameName(PlayerName, _password));
 
@@ -104,6 +123,9 @@ public class Player
         }
     }
 
+    /// <summary>
+    /// Prints the player's status.
+    /// </summary>
     public void Print()
     {
         Console.Clear();
@@ -134,6 +156,9 @@ public class Player
         Thread.Sleep(500);
     }
 
+    /// <summary>
+    /// Prints the player's status during battle.
+    /// </summary>
     public void BattlePrint()
     {
         Console.WriteLine("\n\nTvoje info: ");

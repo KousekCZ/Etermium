@@ -1,16 +1,25 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
-using Etermium.start_and_config;
+using Etermium.Start_Config;
+using System;
+using System.Threading;
 
-namespace Etermium.Print_out;
+namespace Etermium.PrintOut;
 
+/// <summary>
+/// Class responsible for handling riddles presented to the player.
+/// </summary>
 public class Riddles
 {
     private bool _isGuessing = true;
     private string _answer = "";
     private int _attempt = 3;
+    private static int _newMoney;
     private readonly Random _rd = new();
 
+    /// <summary>
+    /// Presents the first riddle to the player.
+    /// </summary>
+    /// <param name="player">The player object.</param>
     public void Riddle1(Player player)
     {
         Console.WriteLine(
@@ -24,9 +33,9 @@ public class Riddles
             _answer = Console.ReadLine()!.Trim();
             if (_answer.Equals("hora", StringComparison.OrdinalIgnoreCase))
             {
-                var newMoney = _rd.Next(10, 45);
-                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + newMoney + "$");
-                player.Money += newMoney;
+                _newMoney = _rd.Next(10, 45);
+                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + _newMoney + "$");
+                player.Money += _newMoney;
                 _isGuessing = false;
                 Thread.Sleep(2000);
             }
@@ -49,6 +58,10 @@ public class Riddles
         GameMenu.NewFrame();
     }
 
+    /// <summary>
+    /// Presents the second riddle to the player.
+    /// </summary>
+    /// <param name="player">The player object.</param>
     public void Riddle2(Player player)
     {
         Console.WriteLine(
@@ -62,9 +75,9 @@ public class Riddles
             _answer = Console.ReadLine()!.Trim();
             if (_answer.Equals("zuby", StringComparison.OrdinalIgnoreCase))
             {
-                var newMoney = _rd.Next(10, 45);
-                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + newMoney + "$");
-                player.Money += newMoney;
+                _newMoney = _rd.Next(10, 45);
+                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + _newMoney + "$");
+                player.Money += _newMoney;
                 _isGuessing = false;
                 Thread.Sleep(2000);
             }
@@ -87,6 +100,10 @@ public class Riddles
         GameMenu.NewFrame();
     }
 
+    /// <summary>
+    /// Presents the third riddle to the player.
+    /// </summary>
+    /// <param name="player">The player object.</param>
     public void Riddle3(Player player)
     {
         Console.WriteLine(
@@ -102,9 +119,9 @@ public class Riddles
             if (_answer.Equals("jméno", StringComparison.OrdinalIgnoreCase) ||
                 _answer.Equals("jmeno", StringComparison.OrdinalIgnoreCase))
             {
-                var newMoney = _rd.Next(10, 45);
-                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + newMoney + "$");
-                player.Money += newMoney;
+                _newMoney = _rd.Next(10, 45);
+                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + _newMoney + "$");
+                player.Money += _newMoney;
                 _isGuessing = false;
                 Thread.Sleep(2000);
             }
@@ -127,6 +144,10 @@ public class Riddles
         GameMenu.NewFrame();
     }
 
+    /// <summary>
+    /// Presents the fourth riddle to the player.
+    /// </summary>
+    /// <param name="player">The player object.</param>
     public void Riddle4(Player player)
     {
         Console.WriteLine(
@@ -141,9 +162,9 @@ public class Riddles
             _answer = Console.ReadLine()!.Trim();
             if (_answer.Equals("pila", StringComparison.OrdinalIgnoreCase))
             {
-                var newMoney = _rd.Next(10, 45);
-                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + newMoney + "$");
-                player.Money += newMoney;
+                _newMoney = _rd.Next(10, 45);
+                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + _newMoney + "$");
+                player.Money += _newMoney;
                 _isGuessing = false;
                 Thread.Sleep(2000);
             }
@@ -166,6 +187,10 @@ public class Riddles
         GameMenu.NewFrame();
     }
 
+    /// <summary>
+    /// Presents the fifth riddle to the player.
+    /// </summary>
+    /// <param name="player">The player object.</param>
     public void Riddle5(Player player)
     {
         Console.WriteLine(
@@ -181,9 +206,9 @@ public class Riddles
             if (_answer.Equals("vítr", StringComparison.OrdinalIgnoreCase) ||
                 _answer.Equals("vitr", StringComparison.OrdinalIgnoreCase))
             {
-                var newMoney = _rd.Next(10, 45);
-                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + newMoney + "$");
-                player.Money += newMoney;
+                _newMoney = _rd.Next(10, 45);
+                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + _newMoney + "$");
+                player.Money += _newMoney;
                 _isGuessing = false;
                 Thread.Sleep(2000);
             }
@@ -206,6 +231,10 @@ public class Riddles
         GameMenu.NewFrame();
     }
 
+    /// <summary>
+    /// Presents the sixth riddle to the player.
+    /// </summary>
+    /// <param name="player">The player object.</param>
     public void Riddle6(Player player)
     {
         Console.WriteLine(
@@ -220,9 +249,9 @@ public class Riddles
             _answer = Console.ReadLine()!.Trim();
             if (_answer.Equals("hodiny", StringComparison.OrdinalIgnoreCase))
             {
-                var newMoney = _rd.Next(10, 45);
-                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + newMoney + "$");
-                player.Money += newMoney;
+                _newMoney = _rd.Next(10, 45);
+                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + _newMoney + "$");
+                player.Money += _newMoney;
                 _isGuessing = false;
                 Thread.Sleep(2000);
             }
@@ -245,6 +274,10 @@ public class Riddles
         GameMenu.NewFrame();
     }
 
+    /// <summary>
+    /// Presents the seventh riddle to the player.
+    /// </summary>
+    /// <param name="player">The player object.</param>
     public void Riddle7(Player player)
     {
         Console.WriteLine(
@@ -259,9 +292,9 @@ public class Riddles
             _answer = Console.ReadLine()!.Trim();
             if (_answer.Equals("mapa", StringComparison.OrdinalIgnoreCase))
             {
-                var newMoney = _rd.Next(10, 45);
-                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + newMoney + "$");
-                player.Money += newMoney;
+                _newMoney = _rd.Next(10, 45);
+                Console.WriteLine("Uhodl/a jsi, dostáváš odměnu v podobě " + _newMoney + "$");
+                player.Money += _newMoney;
                 _isGuessing = false;
                 Thread.Sleep(2000);
             }

@@ -1,13 +1,22 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
+using System;
+using System.Threading;
 
 namespace Etermium.ICommand.Battle;
 
+/// <summary>
+/// Command for executing a heal HP action during battle.
+/// </summary>
 public class HealHp : ICommand
 {
+    /// <summary>
+    /// Executes the heal HP command.
+    /// </summary>
+    /// <param name="player">The player object.</param>
+    /// <param name="enemy">The enemy object.</param>
     public void Execute(Player player, Enemy enemy)
     {
-        start_and_config.GameMenu.NewFrame();
+        Start_Config.GameMenu.NewFrame();
         if (player.HpPotion >= 1)
         {
             if (player.Mana >= 5)

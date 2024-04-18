@@ -1,10 +1,15 @@
 ﻿using Etermium.Entits;
-using Etermium.Entity;
 using Etermium.ICommand.Dealer;
-using Etermium.start_and_config;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using Etermium.Start_Config;
 
 namespace Etermium.Mechanic;
 
+/// <summary>
+/// Represents a dealer in the game responsible for managing transactions with players.
+/// </summary>
 public class Dealer
 {
     public static int PriceHp { get; set; } = 12;
@@ -13,6 +18,10 @@ public class Dealer
     public static int PricePowerPotion { get; set; } = 30;
     public static bool IsBuying { get; set; }
 
+    /// <summary>
+    /// Facilitates trading between the player and the virtual dealer.
+    /// </summary>
+    /// <param name="player">The player object representing the current player.</param>
     public void Trade(Player player)
     {
         IsBuying = true;

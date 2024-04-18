@@ -1,7 +1,16 @@
-﻿namespace Etermium.Print_out;
+﻿using System;
+using System.Threading;
 
-public static class EnemyPicture
+namespace Etermium.PrintOut;
+
+/// <summary>
+/// Class responsible for printing out ASCII art representing various creatures.
+/// </summary>
+public static class Pictures
 {
+    /// <summary>
+    /// Prints out a picture of a bat.
+    /// </summary>
     public static void BatPicture()
     {
         Console.WriteLine("\n\n		     ,*-~\"`^\"*u_                                _u*\"^`\"~-*,\r\n"
@@ -16,7 +25,10 @@ public static class EnemyPicture
                           + "		                          'V')_)(_('V'\r\n" +
                           "		                              `` ``");
     }
-    
+
+    /// <summary>
+    /// Prints out a picture of a rat.
+    /// </summary>
     public static void RatPicture()
     {
         Console.WriteLine("\n\n		                    _,,......_\r\n"
@@ -33,7 +45,10 @@ public static class EnemyPicture
                           + "		        .;;./  '   )   '   )       ///'       `-\"'\r\n"
                           + "		        `--'   7//\\    ///\\");
     }
-    
+
+    /// <summary>
+    /// Prints out a picture of a wolf.
+    /// </summary>
     public static void WolfPicture()
     {
         Console.WriteLine("\n	     	      	                                      __\r\n"
@@ -63,6 +78,9 @@ public static class EnemyPicture
                           + "				                           ;  \n\n ");
     }
 
+    /// <summary>
+    /// Prints out a picture of a dragon.
+    /// </summary>
     public static void DragonPicture()
     {
         Console.WriteLine(

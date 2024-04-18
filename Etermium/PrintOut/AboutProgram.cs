@@ -1,17 +1,26 @@
-﻿namespace Etermium.Print_out;
+﻿using System;
+using System.Threading;
 
-public class AboutProgram
+namespace Etermium.PrintOut;
+
+/// <summary>
+/// Abstract class for displaying information about the program.
+/// </summary>
+public abstract class AboutProgram
 {
     private static string? _text;
 
+    /// <summary>
+    /// Displays the introductory story of the game.
+    /// </summary>
     public static void BeginStory()
     {
         const int pause = 40;
 
         _text = "\nVítám tě ve hře Etermium.";
-        for (var i = 0; i < _text.Length; i++)
+        foreach (var t in _text)
         {
-            Console.Write(_text[i]);
+            Console.Write(t);
             Thread.Sleep(pause);
         }
 
@@ -19,9 +28,9 @@ public class AboutProgram
 
         _text =
             "\nTento typ hry je RPG. Název je převzatý od hry Eternium, která je také RPG, tak se tato hra jmenuje Etermium";
-        for (var i = 0; i < _text.Length; i++)
+        foreach (var t in _text)
         {
-            Console.Write(_text[i]);
+            Console.Write(t);
             Thread.Sleep(pause);
         }
 
@@ -29,27 +38,27 @@ public class AboutProgram
 
         _text =
             "\nTvým úkolem bude bojovat s nepřáteli, odpovídat správně na hádanky a splnit úkoly zadavatele. Vše si důkladně projdi. Cíl hry je porazit bosse 'Dragona', poté jsi vyhrál/a. :)";
-        for (var i = 0; i < _text.Length; i++)
+        foreach (var t in _text)
         {
-            Console.Write(_text[i]);
+            Console.Write(t);
             Thread.Sleep(pause);
         }
 
         Thread.Sleep(2000);
 
         _text = "\nHru si můžeš kdykoli uložit a po startu hry zas načíst tam, kde jsi skončil/a.";
-        for (var i = 0; i < _text.Length; i++)
+        foreach (var t in _text)
         {
-            Console.Write(_text[i]);
+            Console.Write(t);
             Thread.Sleep(pause);
         }
 
         Thread.Sleep(2000);
 
         _text = "\nHlavní vývojář hry: Jan Kus";
-        for (var i = 0; i < _text.Length; i++)
+        foreach (var t in _text)
         {
-            Console.Write(_text[i]);
+            Console.Write(t);
             Thread.Sleep(pause);
         }
 
@@ -65,13 +74,16 @@ public class AboutProgram
         }
     }
 
+    /// <summary>
+    /// Displays a message indicating that the introductory story won't be shown again.
+    /// </summary>
     public static void DontShowYouStoryAgain()
     {
         _text =
             "Už sis ho četl, tak proč by sis ho četl/a znova? Vyber si jinou možnost.";
-        for (var i = 0; i < _text.Length; i++)
+        foreach (var t in _text)
         {
-            Console.Write(_text[i]);
+            Console.Write(t);
             Thread.Sleep(40);
         }
     }
